@@ -1,0 +1,38 @@
+<!doctype html>
+<html
+        lang="en"
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+>
+<head>
+    <title>Club List</title>
+</head>
+
+<body>
+<main class="flex-shrink-0" layout:fragment="body">
+    <!-- Page Content-->
+
+    <section id="landing-page">
+        <div class="shadow-background">
+            <div class="container">
+                <div class="row h-100 py-5">
+                    <div class="col-md-7 h-auto d-flex flex-column align-items-center justify-content-between"
+                         style="padding-bottom:20vh;">
+                        <div>
+                            <h1 class="display-5 text-white text-center fw-bolder my-5">Strength Club Network</h1>
+                            <p class="text-white text-center mt-5">Weightlifting. Powerlifting. Strong man.</p>
+                        </div>
+
+                        <a th:href="@{/clubs}" class="btn btn-secondary rounded-pill">Explore Clubs</a>
+                    </div>
+                    <div class="col-md-5 h-auto d-flex flex-column align-items-center justify-content-between">
+                        <img src="images/arnold-02.png" alt="home page"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" layout:decorate="~{layout}"
+>
+  <head>
+    <title>Event List</title>
+  </head>
+  <body>
+    <main class="flex-shrink-0" layout:fragment="body">
+      <!-- Page Content-->
+      <section class="py-2 events-list">
+        <div class="container px-2 mt-1 pb-5">
+          <div class="text-center mb-5">
+            <h1 class="fw-bolder">Event Explorer</h1>
+            <p class="lead fw-normal text-muted mb-0">Events</p>
+          </div>
+          <div class="row gx-5">
+            <div>
+              <form th:action="@{/events/search}" class="form-inline my-2 my-lg-0 mb-3" method="get">
+                <input
+                  name="query"
+                  class="form-control mr-sm-2 mb-5"
+                  type="search"
+                  placeholder="Search club events"
+                  aria-label="search"
+                />
+              </form>
+            </div>
+            <div class="card col-md-4 my-2 p-2" th:each="event : ${events}">
+              <div class="position-relative mb-1 d-flex flex-column align-items-center justify-content-center">
+                <img alt="..." class="event-img img-fluid rounded-3 mb-1 overflow-hidden w-auto" th:src="${event.getPhotoUrl()}" />
+                <h5
+                  class="text-decoration-none link-dark stretched-link"
+                  th:text="${event.getName()}"
+                ></h5>
+              </div>
+              <p class="card-text">
+              <table class="table table-stiped table-bordered">
+                <tr>
+                  <th>About</th>
+                  <td><span th:text="${#strings.substring(event.type,0,150)}"></span>...<a th:href="@{/events/{id}(id=${event.eventId})}">read more</a>.</td>
+                </tr>
+                <tr>
+                  <th>Start</th>
+                  <td><span th:text="${event.startTime}"></span></td>
+                </tr>
+                <tr>
+                  <th>End</th>
+                  <td><span th:text="${event.endTime}"></span></td>
+                </tr>
+              </table>
+              </p>
+              <div sec:authorize="isAuthenticated()">
+                <div th:if="${user.id} == ${event.club.createdBy.id}">
+                  <a class="btn btn-secondary mb-5" th:href="@{/events/{eventId}/edit(eventId=${event.eventId})}">Edit</a>
+                  <a class="btn btn-danger mb-5" th:href="@{/events/{eventId}/delete(eventId=${event.eventId})}">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

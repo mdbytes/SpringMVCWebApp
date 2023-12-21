@@ -1,0 +1,83 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>Club List</title>
+    </head>
+    <body>
+        <main id="create-form-page" class="flex-shrink-0" layout:fragment="body">
+            <h3 class="display-5 fw-bold text-center mt-5">Create Event</h3>
+            <div class="container">
+                <form id="event-form" method="post" th:action="@{/events/{id}/new(id=${id})}" th:object="${event}">
+                    <div class="col-12">
+                        <label for="eventName" class="form-label">Event Name</label>
+                        <input type="text" class="form-control" id="eventName" name="name" th:field="*{name}" />
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="eventType" class="form-label">Event Type</label>
+                        <input type="text" class="form-control" id="eventType" name="type" th:field="*{type}" />
+                        <p class="alert alert-danger" th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></p>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="eventPhotoUrl" class="form-label">Photo Url</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="eventPhotoUrl"
+                            name="photoUrl"
+                            th:field="*{photoUrl}"
+                        />
+                        <p
+                            class="alert alert-danger"
+                            th:if="${#fields.hasErrors('photoUrl')}"
+                            th:errors="*{photoUrl}"
+                        ></p>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="eventStartTime" class="form-label">Start Time</label>
+                        <input
+                            type="datetime-local"
+                            class="form-control"
+                            id="eventStartTime"
+                            name="startTime"
+                            th:field="*{startTime}"
+                        />
+                        <p
+                            class="alert alert-danger"
+                            th:if="${#fields.hasErrors('startTime')}"
+                            th:errors="*{startTime}"
+                        ></p>
+                    </div>
+
+                    <div class="col-12">
+                        <label for="eventEndTime" class="form-label">End Time</label>
+                        <input
+                            type="datetime-local"
+                            class="form-control"
+                            id="eventEndTime"
+                            name="endTime"
+                            th:field="*{endTime}"
+                        />
+                        <p
+                            class="alert alert-danger"
+                            th:if="${#fields.hasErrors('endTime')}"
+                            th:errors="*{endTime}"
+                        ></p>
+                    </div>
+
+                    <div class="col-12 d-flex align-items-center justify-content-center mt-2">
+                        <button type="submit" class="btn btn-secondary">Create Event</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </body>
+</html>

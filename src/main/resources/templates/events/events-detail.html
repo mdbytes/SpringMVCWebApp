@@ -1,0 +1,74 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>Club List</title>
+    </head>
+    <body>
+        <main layout:fragment="body" class="event-detail">
+            <header class="py-1 bg-light border-bottom mb-2">
+                <div class="container">
+                    <div class="text-center my-2">
+                        <h1 class="fw-bolder" th:text="${event.name}"></h1>
+                        <div class="mb-3">
+                            Begins:
+                            <span th:text="${df.format(event.startTime)}" class="small text-muted"></span>
+                        </div>
+                        <div>
+                            <div sec:authorize="isAuthenticated()">
+                                <div th:if="${user.id eq event.club.createdBy.id}">
+                                    <a
+                                        class="btn btn-secondary mb-5"
+                                        th:href="@{/events/{eventId}/edit(eventId=${event.eventId})}"
+                                        >Edit</a
+                                    >
+                                    <a
+                                        class="btn btn-danger mb-5"
+                                        th:href="@{/events/{eventId}/delete(eventId=${event.eventId})}"
+                                        >Delete</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <div class="container">
+                <div class="row">
+                    <!-- Nested row for non-featured blog posts-->
+                    <div class="row">
+                        <!-- Blog post-->
+                        <div class="mb-4 col-lg-6">
+                            <img class="card-img-top img-fluid" th:src="${event.photoUrl}" alt="..." />
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card-body">
+                                <h2 class="card-title h4 mt-1 mb-3" th:text="${event.name}"></h2>
+
+                                <table class="table table-stiped table-bordered">
+                                    <tr>
+                                        <th>About</th>
+                                        <td><span th:text="${event.type}"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Start</th>
+                                        <td><span th:text="${df.format(event.startTime)}"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <th>End</th>
+                                        <td><span th:text="${df.format(event.endTime)}"></span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html
+    lang="en"
+    xmlns:th="http://thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+    layout:decorate="~{layout}"
+>
+    <head>
+        <title>Club List</title>
+    </head>
+
+    <body>
+        <main class="flex-shrink-0 club-list" layout:fragment="body">
+            <!-- Page Content-->
+
+            <section class="pb-5 pt-2">
+                <div class="container px-5">
+                    <div
+                        th:if="${param.success}"
+                        class="alert alert-success mb-5"
+                        style="width: fit-content; margin: 0 auto"
+                    >
+                        You have registered successfully!
+                    </div>
+                    <div class="text-center">
+                        <h1 class="fw-bolder">Strength Clubs</h1>
+                        <p class="lead fw-normal text-muted mb-0">Our Club Network</p>
+                    </div>
+                    <div class="row pt-2 pb-5">
+                        <div class="d-flex flex-column align-items-center justify-content-center">
+                            <hr class="w-50" />
+
+                            <div
+                                th:if="${param.query}"
+                                class="w-50 d-flex flex-column align-items-center justify-content-center"
+                            >
+                                <div class="w-100 d-flex flex-row align-items-center justify-content-between">
+                                    <p>Search results for: "<span th:text="${param.query}"></span>"</p>
+
+                                    <div>
+                                        <a class="btn btn-secondary" th:href="@{/clubs}">Clear Search</a>
+                                    </div>
+                                </div>
+                                <hr class="w-100" />
+                            </div>
+
+                            <p class="text-sm fst-italic">Click any image for detail upcoming events</p>
+                        </div>
+
+                        <div class="col-lg-6 h-auto mt-2 mb-3" th:each="club : ${clubs}">
+                            <div class="position-relative mb-1 border-bottom border-black h-100">
+                                <h5 class="text-center" th:text="${club.getTitle()}"></h5>
+                                <a th:href="@{/clubs/{id}(id=${club.id})}">
+                                    <img
+                                        alt="..."
+                                        class="img-fluid rounded-3 mb-3"
+                                        th:src="${club.getPhotoUrl()}"
+                                        title="click for detail and events"
+                                    />
+                                </a>
+                                <div class="club-info">
+                                    <div class="club-buttons">
+                                        <div sec:authorize="isAuthenticated()">
+                                            <div th:if="${user.id} == ${club.createdBy.id}">
+                                                <a
+                                                    class="btn btn-secondary mb-5"
+                                                    th:href="@{/clubs/{id}/edit(id=${club.id})}"
+                                                    >Edit</a
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>

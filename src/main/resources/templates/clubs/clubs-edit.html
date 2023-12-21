@@ -1,0 +1,43 @@
+<!doctype html>
+<html
+        lang="en"
+        xmlns:th="http://thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}"
+>
+<head>
+    <title>Club List</title>
+</head>
+<body>
+<main id="create-form-page" class="flex-shrink-0" layout:fragment="body">
+    <h3 class="display-5 fw-bold text-center mt-5">Edit Club</h3>
+    <div class="container">
+        <form method="post" th:action="@{/clubs/{id}/edit(id=${club.id})}" th:object="${club}" class="row g-3"
+              id="club-form">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="col-12">
+                <label for="clubName" class="form-label">Club Name</label>
+                <input type="text" class="form-control" id="clubName" name="title" th:field="*{title}"/>
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></p>
+            </div>
+
+            <div class="col-12">
+                <label for="clubContent" class="form-label">Club Description</label>
+                <input type="text" class="form-control" id="clubContent" name="content" th:field="*{content}"/>
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></p>
+            </div>
+
+            <div class="col-12">
+                <label for="clubPhotoUrl" class="form-label">Club Photo Url</label>
+                <input type="text" class="form-control" id="clubPhotoUrl" name="photoUrl" th:field="*{photoUrl}"/>
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('photoUrl')}" th:errors="*{photoUrl}"></p>
+            </div>
+
+            <div class="col-12 d-flex align-items-center justify-content-center">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

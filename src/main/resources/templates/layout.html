@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title layout:title-pattern="$LAYOUT_TITLE - $CONTENT_TITLE">Strength Club</title>
+    <link rel="icon" type="image/png" href="/images/arnold-02.png">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:ref="@{/css/bootstrap-icons.css}"/>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+
+</head>
+<body>
+<nav th:insert="~{layout/navbar}"></nav>
+<main layout:fragment="body"></main>
+<footer th:insert="~{layout/footer}"/>
+</body>
+</html>
