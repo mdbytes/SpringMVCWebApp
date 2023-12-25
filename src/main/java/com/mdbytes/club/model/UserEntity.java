@@ -2,10 +2,7 @@ package com.mdbytes.club.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -17,6 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity(name = "users")
 public class UserEntity {
 
@@ -49,14 +47,15 @@ public class UserEntity {
 
     @CreationTimestamp
     private LocalDateTime createdOn;
+
     @UpdateTimestamp
     private LocalDateTime updatedOn;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "user_roles",
-            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")}
+        name = "user_roles",
+        joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
+        inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") }
     )
     private List<Role> roles = new ArrayList<>();
 
