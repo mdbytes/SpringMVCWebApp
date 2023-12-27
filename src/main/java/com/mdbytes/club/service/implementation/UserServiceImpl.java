@@ -22,14 +22,18 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(
+        UserRepository userRepository,
+        RoleRepository roleRepository,
+        PasswordEncoder passwordEncoder
+    ) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public void saveUser(RegistrationDto registrationDto) {
+    public UserEntity saveUser(RegistrationDto registrationDto) {
         UserEntity user = new UserEntity();
         System.out.println("making user");
         user.setUsername(registrationDto.getUsername());
@@ -37,8 +41,8 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
         Role role = roleRepository.findByName("ADMIN");
         user.setRoles(Arrays.asList(role));
-        userRepository.save(user);
         System.out.println(user);
+        return userRepository.save(user);
     }
 
     @Override
@@ -57,8 +61,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(UserEntity user) {
-        userRepository.save(user);
+    public UserEntity save(UserEntity user) {
+        return userRepository.save(user);
     }
 
     @Override

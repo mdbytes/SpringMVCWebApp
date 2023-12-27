@@ -5,10 +5,8 @@ import com.mdbytes.club.model.UserEntity;
 
 import java.util.List;
 
-
 public interface UserService {
-
-    void saveUser(RegistrationDto registrationDto);
+    UserEntity saveUser(RegistrationDto registrationDto);
 
     UserEntity findByEmail(String email);
 
@@ -16,7 +14,7 @@ public interface UserService {
 
     List<UserEntity> findAll();
 
-    void save(UserEntity user);
+    UserEntity save(UserEntity user);
 
     void delete(UserEntity user);
 
