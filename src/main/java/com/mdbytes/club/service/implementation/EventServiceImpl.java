@@ -38,6 +38,8 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventDto> findAll() {
+        List<Event> events = eventRepository.findAll();
+        events.sort((a, b) -> a.getStartTime().compareTo(b.getStartTime()));
         return eventRepository.findAll().stream().map(event -> mapToEventDto(event)).collect(Collectors.toList());
     }
 

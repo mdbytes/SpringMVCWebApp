@@ -32,6 +32,7 @@ public class ClubServiceImpl implements ClubService {
     @Override
     public List<ClubDto> findAllClubs() {
         List<Club> clubs = clubRepository.findAll();
+        clubs.sort((a, b) -> a.getTitle().compareTo(b.getTitle()));
         return clubs.stream().map(club -> mapToClubDto(club)).collect(Collectors.toList());
     }
 
