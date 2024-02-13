@@ -8,3 +8,6 @@ also a major dependency, greatly reducing SQL and Java coding.
 
 Testing for Controllers is still in progress.
 
+Application designed and built for educational purposes.
+
+For reuse of code, please see license in root of repository.
